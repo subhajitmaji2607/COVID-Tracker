@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+<!-- <v-app>
     <v-app-bar
       app
       color="primary"
@@ -40,21 +40,32 @@
     <v-main>
       <HelloWorld/>
     </v-main>
+  </v-app> -->
+  <!-- <v-app> -->
+  <!-- </v-app> -->
+  <v-app>
+    <Navigationber/>
+    <v-main>
+      <Topsection/>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
+// import HelloWorld from './components/HelloWorld';
+import Navigationber from './components/Navigationbar.vue'
+import Topsection from './components/TopSection.vue'
 export default {
-  name: 'App',
+    name: "App",
 
-  components: {
-    HelloWorld,
-  },
+    components: {
+        // HelloWorld,
+        Navigationber,
+        Topsection,
+    },
 
-  data: () => ({
-    //*
-  }),
+    data: () => ({
+        //*
+    }),
 };
 </script>
