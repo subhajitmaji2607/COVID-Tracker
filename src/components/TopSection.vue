@@ -1,7 +1,7 @@
 <template>
 <v-container fluid>
     <v-row dense class="mt-1">
-        <v-row dense class="mt-1 ml-4">
+        <v-row dense class="mt-1">
             <v-col cols="12" sm="3">
                 <GeneralCard color='#D1C4E9' icon='trending_up' iconColor='#6A1B9A' cardTitle="Confirmed" :data="stateInfo.confirmed"/> <!--deep-purple lighten-4 -->
             </v-col>
@@ -19,27 +19,31 @@
             <v-select :items="statesName" v-model="selectedState" :hint="stateInfo.lastupdatedtime" label="Location" outlined prepend-inner-icon="location_on" menu-props="auto"></v-select>
         </v-col>
     </v-row>
-    <!-- <p>{{ selectedState }}</p>-->
-    <!-- <p>{{ stateInfo }}</p> -->
+   <DetailsComponent/>
 </v-container>
 </template>
 
 <script>
 import GeneralCard from './GeneralCard.vue'
+import DetailsComponent from './DetailsComponent.vue'
 import axios from 'axios'
 export default {
     name: 'Body',
     components: {
         GeneralCard,
+        DetailsComponent,
+    },
+    props:{
+        getData:Function,
     },
     data: () => ({
-        items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-        data:{
-            total: 5000,
-            active:500,
-            recoverd:4300,
-            death:200
-        },
+        // items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+        // data:{
+        //     total: 5000,
+        //     active:500,
+        //     recoverd:4300,
+        //     death:200
+        // },
         statewiseData:[],
         statesName:[],
         selectedState: 'All',
@@ -49,6 +53,7 @@ export default {
         const {data} = await axios.get('https://data.covid19india.org/data.json')
         this.statewiseData = data.statewise
         this.stateInfo = this.statewiseData[0]
+        this.getData('top')
         // console.log(data.statewise)
     },
     //watcher are execute when the value of a 

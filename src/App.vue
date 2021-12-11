@@ -2,7 +2,7 @@
   <v-app>
     <Navigationber/>
     <v-main>
-      <TopSection/>
+      <TopSection :getData="getData"/>
     </v-main>
   </v-app>
 </template>
@@ -21,5 +21,11 @@ export default {
     data: () => ({
         //*
     }),
+    methods:{
+      //getting data from child compnent into parent component
+      getData(txt){
+        console.log(txt)
+      }
+    }
 };
 </script>

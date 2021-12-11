@@ -28,7 +28,7 @@ export default {
         icon: String,
         iconColor:String,
         cardTitle:String,
-        data: Number,
+        data: String,
     },
     data:()=>({
         
