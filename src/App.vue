@@ -2,20 +2,20 @@
   <v-app>
     <Navigationber/>
     <v-main>
-      <MainSection/>
+      <TopSection/>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import Navigationber from './components/Navigationbar.vue'
-import MainSection from './components/MainSection.vue'
+import TopSection from './components/TopSection.vue'
 export default {
     name: "App",
 
     components: {
         Navigationber,
-        MainSection,
+        TopSection,
     },
 
     data: () => ({
