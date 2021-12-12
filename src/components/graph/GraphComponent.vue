@@ -1,11 +1,11 @@
 <template>
 <div>
-    <apexchart width="100%" height="300" :type="type" :options="options" :series="series"></apexchart>
+    <apexchart width="100%" height="300" type="area" :options="options" :series="series"></apexchart>
 </div>
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
     name: 'Graph',
     data: function () {
@@ -15,7 +15,8 @@ export default {
                     id: 'vuechart-example'
                 },
                 xaxis: {
-                    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+                    // categories: ['1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998']
+                    categories:[]
                 },
                 yaxis:{
                     show: false
@@ -45,9 +46,10 @@ export default {
                 }
             },
             series: [{
-                name: 'series-1',
-                data: [30, 40, 45, 50, 49, 60, 70, 91]
-            }]
+                name: 'Confirmed Graph',
+                // data: ['30', '40', '45', '50', '49', '60', '70', '91'],
+                data:[]
+            }],
         }
     },
     props:{
@@ -55,6 +57,20 @@ export default {
         title:String,
         textColor:String,
         graphColor:Array,
-    }
+    },
+    async mounted(){
+        const {data} = await axios.get('https://data.covid19india.org/data.json')
+        //sending data from child compnent to parent component
+        // this.getData('top')
+        this.series =[{
+            name: 'Confirmed Graph',
+            data: data.cases_time_series.map((item)=>item.dailyconfirmed)
+        }]
+        this.options={
+            xaxis: {
+                categories: data.cases_time_series.map((item)=>item.dateymd)
+            },
+        }
+    },
 }
 </script>
