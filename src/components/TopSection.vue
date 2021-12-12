@@ -16,24 +16,32 @@
             </v-col>
         </v-row>
         <v-col cols="12" sm="3" class="mt-2">
-            <v-select :items="statesName" v-model="selectedState" :hint="stateInfo.lastupdatedtime" label="Location" outlined prepend-inner-icon="location_on" menu-props="auto"></v-select>
+           <v-select :items="statesName" v-model="selectedState" label="Location" outlined prepend-inner-icon="location_on" menu-props="auto"></v-select>
         </v-col>
     </v-row>
-   <DetailsComponent/>
+    <div v-if="selectedState==='All'">
+        <DetailsComponent/>
+    </div>
+    <div v-else>
+        <StateDetails/>
+    </div>
 </v-container>
 </template>
 
 <script>
 import GeneralCard from './GeneralCard.vue'
 import DetailsComponent from './DetailsComponent.vue'
+import StateDetails from './StateDetailsComponent.vue'
 import axios from 'axios'
 export default {
-    name: 'Body',
+    name: 'TopSection',
     components: {
         GeneralCard,
         DetailsComponent,
+        StateDetails,
     },
     props:{
+        //sending data from child compnent to parent component
         getData:Function,
     },
     data: () => ({
@@ -53,10 +61,12 @@ export default {
         const {data} = await axios.get('https://data.covid19india.org/data.json')
         this.statewiseData = data.statewise
         this.stateInfo = this.statewiseData[0]
-        this.getData('top')
+        //sending data from child compnent to parent component
+        // this.getData('top')
         // console.log(data.statewise)
     },
-    //watcher are execute when the value of a 
+    //watcher are execute when a particular value in data changes 
+    //statewiseData() execute whenever statewiseData:[] update
     watch:{
         statewiseData(states){
             this.statesName = states.map((state)=>{
