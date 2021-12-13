@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
     name: 'DeceasedGraph',
     data: function () {
@@ -59,18 +59,38 @@ export default {
         textColor:String,
         graphColor:Array,
         gridBorderColor:String,
+        xaxisDeceasedGraphGraphData:Array,
+        deceasedGraphGraphData:Array,
+
     },
-    async mounted(){
-        const {data} = await axios.get('https://data.covid19india.org/data.json')
-        this.series =[{
+    watch:{
+        xaxisDeceasedGraphGraphData(value){
+            // console.log(value)
+            this.options={
+                xaxis:{
+                    categories: value
+                }
+            }
+        },
+        deceasedGraphGraphData(value){
+            // console.log(value)
+            this.series =[{
             name: 'Deceased Graph',
-            data: data.cases_time_series.map((item)=>item.dailydeceased)
+            data: value
         }]
-        this.options={
-            xaxis: {
-                categories: data.cases_time_series.map((item)=>item.dateymd)
-            },
         }
     },
+    // async mounted(){
+    //     const {data} = await axios.get('https://data.covid19india.org/data.json')
+    //     this.series =[{
+    //         name: 'Deceased Graph',
+    //         data: data.cases_time_series.map((item)=>item.dailydeceased)
+    //     }]
+    //     this.options={
+    //         xaxis: {
+    //             categories: data.cases_time_series.map((item)=>item.dateymd)
+    //         },
+    //     }
+    // },
 }
 </script>

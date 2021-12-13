@@ -1,11 +1,14 @@
 <template>
 <div>
     <apexchart width="100%" height="300" type="area" :options="options" :series="series"></apexchart>
+    <!-- {{xaxisConfirmedGraphData.length}}
+    {{confirmedGraphData.length}} -->
+    <!-- {{selectedState}} -->
 </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
     name: 'ConfirmGraph',
     data: function () {
@@ -59,20 +62,39 @@ export default {
         textColor:String,
         graphColor:Array,
         gridBorderColor:String,
+        xaxisConfirmedGraphData:Array,
+        confirmedGraphData:Array,
     },
-    async mounted(){
-        const {data} = await axios.get('https://data.covid19india.org/data.json')
-        //sending data from child compnent to parent component
-        // this.getData('top')
-        this.series =[{
+    // async mounted(){
+    //     const {data} = await axios.get('https://data.covid19india.org/data.json')
+    //     //sending data from child compnent to parent component
+    //     // this.getData('top')
+    //     this.series =[{
+    //         name: 'Confirmed Graph',
+    //         data: data.cases_time_series.map((item)=>item.dailyconfirmed)
+    //     }]
+    //     this.options={
+    //         xaxis: {
+    //             categories: data.cases_time_series.map((item)=>item.dateymd)
+    //         },
+    //     }
+    // },
+    watch:{
+        xaxisConfirmedGraphData(value){
+            // console.log(value)
+            this.options={
+                xaxis:{
+                    categories: value
+                }
+            }
+        },
+        confirmedGraphData(value){
+            // console.log(value)
+            this.series =[{
             name: 'Confirmed Graph',
-            data: data.cases_time_series.map((item)=>item.dailyconfirmed)
+            data: value
         }]
-        this.options={
-            xaxis: {
-                categories: data.cases_time_series.map((item)=>item.dateymd)
-            },
         }
-    },
+    }
 }
 </script>
