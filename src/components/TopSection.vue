@@ -20,7 +20,7 @@
         </v-col>
     </v-row>
     <div v-if="selectedState==='All'">
-        <DetailsComponent/>
+        <DetailsComponent :casesTimeSeries="casesTimeSeries"/>
     </div>
     <div v-else>
         <StateDetails/>
@@ -56,11 +56,13 @@ export default {
         statesName:[],
         selectedState: 'All',
         stateInfo:{},
+        casesTimeSeries:[]
     }),
     async mounted(){
         const {data} = await axios.get('https://data.covid19india.org/data.json')
         this.statewiseData = data.statewise
         this.stateInfo = this.statewiseData[0]
+        this.casesTimeSeries = data.cases_time_series
         //sending data from child compnent to parent component
         // this.getData('top')
         // console.log(data.statewise)

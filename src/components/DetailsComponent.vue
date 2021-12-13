@@ -9,16 +9,20 @@
                   title="Daily Confirmed"
                   textColor='#EF5350'
                   gridBorderColor='#EF9A9A'
+                  :xaxisConfirmedGraphData="xaxisConfirmedGraphData"
+                  :confirmedGraphData="confirmedGraphData"
                 />
             </v-card>
         </v-col>
         <v-col cols="6" xs="12">
-            <v-card elevation="3" color="green lighten-5" style="min-height: 300px">
+            <v-card elevation="3" color="blue lighten-5" style="min-height: 300px">
                 <RecoveredGraph
-                  type="bar"
-                  :graphColor="['#2E7D32']"
+                  type="area"
+                  :graphColor="['#1976D2']"
                   title="Daily Recovered"
-                  textColor='#2E7D32'
+                  textColor='#1976D2'
+                  :xaxisRecoveredGraphData="xaxisRecoveredGraphData"
+                  :recoveredGraphData="recoveredGraphData"
                 />
             </v-card>
         </v-col>
@@ -41,10 +45,15 @@
                   :graphColor="['#424242']"
                   title="Daily Deceased"
                   textColor='#424242'
+                  :xaxisDeceasedGraphGraphData="xaxisDeceasedGraphGraphData"
+                  :deceasedGraphGraphData="deceasedGraphGraphData"
                 />
             </v-card>
         </v-col>
     </v-row>
+    <!-- {{casesTimeSeries.length}} -->
+    <!-- {{xaxisConfirmedGraphData}} -->
+    <!-- {{confirmedGraphData}} -->
 </v-main>
 </template>
 
@@ -62,28 +71,55 @@ export default {
         TestedGraph,
     },
     data: () => ({
-        xaxisDataForConfirmedGraph: [],
-        dataForConfirmedGraph:[],
+        xaxisConfirmedGraphData: [],
+        confirmedGraphData:[],
+        xaxisRecoveredGraphData: [],
+        recoveredGraphData:[],
+        xaxisDeceasedGraphGraphData:[],
+        deceasedGraphGraphData:[]
     }),
     props: {
-        
+        casesTimeSeries:Array,
     },
-    // methods: {
-    //     filterDataForConfirmedGraph(data) {
-    //         console.log(data)
-    //     }
-    // },
-    // mounted() {
-    //     // this.filterDataForConfirmedGraph(this.data)
-    //     this.xaxisDataForConfirmedGraph = this.data
-    //     console.log('call')
-    // },
-    // watch:{
-    //     rawDataForGraph(graphData){
-    //         // console.log('data update')
-    //         this.xaxisDataForConfirmedGraph = graphData.map((data)=>data.dateymd)
-    //         this.dataForConfirmedGraph = graphData.map((data)=>data.dailyconfirmed)
-    //     }
-    // }
+    methods:{
+        filterData(value){
+            // console.log('call')
+
+            //filter data for confirm graph
+            this.xaxisConfirmedGraphData = value.map((data)=>data.dateymd)
+            this.confirmedGraphData = value.map((data)=>data.dailyconfirmed)
+
+            //filter data for recover graph
+            this.xaxisRecoveredGraphData = value.map((data)=>data.dateymd)
+            this.recoveredGraphData = value.map((data)=>data.dailyrecovered)
+
+            //filter data for deceased graph
+            this.xaxisDeceasedGraphGraphData = value.map((data)=>data.dateymd)
+            this.deceasedGraphGraphData = value.map((data)=>data.dailydeceased) 
+
+        }
+    },
+    watch:{
+        casesTimeSeries(value){
+            // console.log('watch')
+            this.filterData(value)
+        }
+    },
+    mounted(){
+        // console.log('detail mounted')
+        // this.filterData()
+
+        //filter data for confirm graph
+        this.xaxisConfirmedGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
+        this.confirmedGraphData = this.casesTimeSeries.map((data)=>data.dailyconfirmed)
+
+        //filter data for recover graph
+        this.xaxisRecoveredGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
+        this.recoveredGraphData = this.casesTimeSeries.map((data)=>data.dailyrecovered) 
+        
+        //filter data for deceased graph
+        this.xaxisDeceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
+        this.deceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dailydeceased) 
+    }
 }
 </script>
