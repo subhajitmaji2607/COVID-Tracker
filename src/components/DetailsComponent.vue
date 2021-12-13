@@ -41,7 +41,7 @@
         <v-col cols="6" xs="12">
             <v-card elevation="3" color="grey lighten-4" style="min-height: 300px">
                 <DeceasedGraph
-                  type="line"
+                  type="area"
                   :graphColor="['#424242']"
                   title="Daily Deceased"
                   textColor='#424242'
