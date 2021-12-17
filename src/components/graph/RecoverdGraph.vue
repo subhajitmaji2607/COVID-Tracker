@@ -42,7 +42,7 @@ export default {
                     style:{
                         color:this.textColor,
                         fontWeight:  'bold',
-                        fontSize:  '22px',
+                        fontSize:  '18px',
                     }
                 }
             },

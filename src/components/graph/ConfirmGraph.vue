@@ -4,6 +4,7 @@
     <!-- {{xaxisConfirmedGraphData.length}}
     {{confirmedGraphData.length}} -->
     <!-- {{selectedState}} -->
+    <!-- {{confirmedGraphData}} -->
 </div>
 </template>
 
@@ -45,7 +46,7 @@ export default {
                     style:{
                         color:this.textColor,
                         fontWeight:  'bold',
-                        fontSize:  '22px',
+                        fontSize:  '18px',
                     }
                 }
             },
@@ -92,9 +93,13 @@ export default {
             // console.log(value)
             this.series =[{
             name: 'Confirmed Graph',
+            // name: value.graphName,
             data: value
         }]
         }
     }
+    // mounted(){
+    //     console.log(this.confirmedGraphData.data)
+    // }
 }
 </script>
