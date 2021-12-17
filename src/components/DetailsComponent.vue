@@ -21,6 +21,7 @@
                   :graphColor="['#1976D2']"
                   title="Daily Recovered"
                   textColor='#1976D2'
+                  gridBorderColor='#90CAF9'
                   :xaxisRecoveredGraphData="xaxisRecoveredGraphData"
                   :recoveredGraphData="recoveredGraphData"
                 />
@@ -33,7 +34,7 @@
                 <TestedGraph
                   type="area"
                   :graphColor="['#EF6C00']"
-                  title="Daily Tested"
+                  title="Daily Tested(showing wrong data)"
                   textColor='#EF6C00'
                 />
             </v-card>
@@ -45,13 +46,14 @@
                   :graphColor="['#424242']"
                   title="Daily Deceased"
                   textColor='#424242'
+                  gridBorderColor='#BDBDBD'
                   :xaxisDeceasedGraphGraphData="xaxisDeceasedGraphGraphData"
                   :deceasedGraphGraphData="deceasedGraphGraphData"
                 />
             </v-card>
         </v-col>
     </v-row>
-    <!-- {{casesTimeSeries.length}} -->
+    <!-- {{casesTimeSeries}} -->
     <!-- {{xaxisConfirmedGraphData}} -->
     <!-- {{confirmedGraphData}} -->
 </v-main>
@@ -72,6 +74,10 @@ export default {
     },
     data: () => ({
         xaxisConfirmedGraphData: [],
+        // confirmedGraphData:{
+        //     graphName:'Confirm Graph',
+        //     data:[]
+        // },
         confirmedGraphData:[],
         xaxisRecoveredGraphData: [],
         recoveredGraphData:[],
@@ -84,6 +90,7 @@ export default {
     methods:{
         filterData(value){
             // console.log('call')
+            // console.log(value)
 
             //filter data for confirm graph
             this.xaxisConfirmedGraphData = value.map((data)=>data.dateymd)
@@ -93,7 +100,7 @@ export default {
             this.xaxisRecoveredGraphData = value.map((data)=>data.dateymd)
             this.recoveredGraphData = value.map((data)=>data.dailyrecovered)
 
-            //filter data for deceased graph
+            // //filter data for deceased graph
             this.xaxisDeceasedGraphGraphData = value.map((data)=>data.dateymd)
             this.deceasedGraphGraphData = value.map((data)=>data.dailydeceased) 
 
@@ -110,16 +117,17 @@ export default {
         // this.filterData()
 
         //filter data for confirm graph
-        this.xaxisConfirmedGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
-        this.confirmedGraphData = this.casesTimeSeries.map((data)=>data.dailyconfirmed)
+        // this.xaxisConfirmedGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
+        // this.confirmedGraphData = this.casesTimeSeries.map((data)=>data.dailyconfirmed)
+        this.filterData(this.casesTimeSeries)
 
         //filter data for recover graph
-        this.xaxisRecoveredGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
-        this.recoveredGraphData = this.casesTimeSeries.map((data)=>data.dailyrecovered) 
+        // this.xaxisRecoveredGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
+        // this.recoveredGraphData = this.casesTimeSeries.map((data)=>data.dailyrecovered) 
         
-        //filter data for deceased graph
-        this.xaxisDeceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
-        this.deceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dailydeceased) 
+        // //filter data for deceased graph
+        // this.xaxisDeceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
+        // this.deceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dailydeceased) 
     }
 }
 </script>
