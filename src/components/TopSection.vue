@@ -15,8 +15,9 @@
                 <GeneralCard color="#EEEEEE" icon="local_florist" iconColor="#616161" cardTitle="Death" :data="stateInfo.deaths"/> <!--grey lighten-3-->
             </v-col>
         </v-row>
-        <v-col cols="12" sm="3" class="mt-2">
-           <v-select :items="statesName" v-model="selectedState" label="Location" outlined prepend-inner-icon="location_on" menu-props="auto"></v-select>
+        <v-col style="display:flex;flex-direction:column;" cols="12" sm="3">
+           <v-select :items="statesName" v-model="selectedState" outlined prepend-inner-icon="search" menu-props="auto"></v-select>
+           <v-select v-if="selectedState!=='All'" :items="districtsNameOfState" v-model="selectedDistrict" outlined prepend-inner-icon="search" menu-props="auto"></v-select>
         </v-col>
     </v-row>
     <div v-if="selectedState==='All'">
@@ -52,11 +53,16 @@ export default {
         //     recoverd:4300,
         //     death:200
         // },
+        printKeyInConsole:false,
         statewiseData:[],
         statesName:[],
         selectedState: 'All',
         stateInfo:{},
-        casesTimeSeries:[]
+        casesTimeSeries:[],
+        districtData:{},
+        districtsNameOfState:[],
+        selectedDistrict:'',
+        districtWiseDataOfState:{}
     }),
     async mounted(){
         const {data} = await axios.get('https://data.covid19india.org/data.json')
@@ -66,6 +72,9 @@ export default {
         //sending data from child compnent to parent component
         // this.getData('top')
         // console.log(data.statewise)
+        const district_data = await axios.get('https://data.covid19india.org/state_district_wise.json')
+        console.log(district_data.data)
+        this.districtData = district_data.data
     },
     //watcher are execute when a particular value in data changes 
     //statewiseData() execute whenever statewiseData:[] update
@@ -81,8 +90,35 @@ export default {
             })
         },
         selectedState(stateName){
+            console.log(stateName)
             if(stateName === 'All') this.stateInfo = this.statewiseData[0]
-            else this.stateInfo = this.statewiseData.filter((state)=>state.state === stateName)[0]
+            else{
+                this.stateInfo = this.statewiseData.filter((state)=>state.state === stateName)[0]
+                Object.entries(this.districtData).forEach(([key,value])=>{
+                    // console.log(key,value)
+                    if(stateName === key){
+                        this.districtsNameOfState = []
+                        this.districtOfState = Object.entries(value.districtData).map(([key])=>{
+                            // console.log(key,value)
+                            this.districtsNameOfState.push(key)
+                        })
+                        this.selectedDistrict = this.districtsNameOfState[0]
+                    }
+                })
+            }
+        },
+        selectedDistrict(districtName){
+            console.log(districtName)
+            Object.entries(this.districtData).forEach(([key,value])=>{
+                // console.log(key,value)
+                if(this.printKeyInConsole) console.log(key)
+                Object.entries(value.districtData).forEach(([key,value])=>{
+                    if(districtName === key){
+                        console.log(value)
+                        this.districtWiseDataOfState = value
+                    }
+                })
+            })
         }
     },
     // methods:{
@@ -94,3 +130,8 @@ export default {
     // }
 }
 </script>
+<style>
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+    display: none;
+}
+</style>
