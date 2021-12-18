@@ -6,7 +6,7 @@
         </v-col>
          <v-col cols="5" xs="12" :style="{/*border:'2px solid black'*/minHeight: '450px'}">
             <v-card height="100%" style="display:flex; flex-direction: row">
-                <v-col cols="5" :style="{/*border:'2px solid black'*/}">
+                <v-col cols="5" :style="{/*border:'2px solid black'*/minHeight: '450px'}">
                     <h3 class="font-weight-bold">Top districts</h3>
                     <template v-for="item in topDistrict">
                         <v-list :key="item[0]">
@@ -17,7 +17,7 @@
                         </v-list>
                     </template>
                 </v-col>
-                <v-col cols="7" :style="{/*border:'2px solid black'*/}">
+                <v-col cols="7" :style="{/*border:'2px solid black'*/minHeight: '450px'}">
                     <BarGraph :topDistrictGraphData="topDistrictGraphData"/>
                 </v-col>
             </v-card>
@@ -50,7 +50,7 @@ export default {
             Object.entries(data).forEach(([key,value])=>{
                 // console.log(key,value)
                 if(key === state){
-                    this.topDistrict = (Object.entries(value.districtData).sort((a,b)=>b[1].active - a[1].active)).slice(0,4)
+                    this.topDistrict = (Object.entries(value.districtData).sort((a,b)=>b[1].active - a[1].active)).slice(0,6)
                     this.topDistrictGraphData = this.topDistrict.map((ele)=>ele[1].active)
                 }
             })
