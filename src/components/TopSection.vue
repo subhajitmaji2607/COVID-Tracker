@@ -28,7 +28,7 @@
         <DetailsComponent :casesTimeSeries="casesTimeSeries" />
     </div>
     <div v-else>
-        <StateDetails />
+        <StateDetails :district_data="district_data" :selectedState="selectedState"/>
     </div>
 </v-container>
 </template>
@@ -73,7 +73,7 @@ export default {
         // this.getData('top')
         // console.log(data.statewise)
         const data_of_district = await axios.get('https://data.covid19india.org/state_district_wise.json')
-        console.log(data_of_district.data)
+        // console.log(data_of_district.data)
         this.district_data = data_of_district.data
     },
     methods: {
@@ -105,7 +105,7 @@ export default {
             })
         },
         selectedState(stateName) {
-            console.log(stateName)
+            // console.log(stateName)
             if (stateName === 'All') this.stateInfo = this.statewiseData[0]
             else {
                 this.stateInfo = this.statewiseData.filter((state) => state.state === stateName)[0]
