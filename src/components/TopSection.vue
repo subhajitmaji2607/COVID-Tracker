@@ -25,7 +25,7 @@
         </v-col>
     </v-row>
     <div v-if="selectedState==='All'">
-        <DetailsComponent :casesTimeSeries="casesTimeSeries" />
+        <DetailsComponent :casesTimeSeries="casesTimeSeries" :tested="tested"/>
     </div>
     <div v-else>
         <StateDetails :district_data="district_data" :selectedState="selectedState"/>
@@ -56,6 +56,7 @@ export default {
         selectedState: 'All',
         stateInfo: {},
         casesTimeSeries: [],
+        tested:[],
         district_data: {},
         districtsNameOfState: [],
         selectedDistrict: '',
@@ -69,6 +70,7 @@ export default {
         this.statewiseData = data.statewise
         this.stateInfo = this.statewiseData[0]
         this.casesTimeSeries = data.cases_time_series
+        this.tested = data.tested
         //sending data from child compnent to parent component
         // this.getData('top')
         // console.log(data.statewise)

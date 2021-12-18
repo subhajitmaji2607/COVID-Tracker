@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
     name: 'TestedGraph',
     data: function () {
@@ -42,7 +42,7 @@ export default {
                     style:{
                         color:this.textColor,
                         fontWeight:  'bold',
-                        fontSize:  '22px',
+                        fontSize:  '18px',
                     }
                 }
             },
@@ -59,27 +59,50 @@ export default {
         textColor:String,
         graphColor:Array,
         gridBorderColor:String,
+        xaxisTeastedGraphGraphData:Array,
+        teastedGraphGraphData:Array,
     },
     async mounted(){
-        const {data} = await axios.get('https://data.covid19india.org/data.json')
-        // console.log(data.tested.map((item)=>item.totalsamplestested))
-        // console.log(this.reformatDate(data.tested.map((item)=>item.testedasof))),
-        //need of fetch correct data 
-        this.series =[{
-            name: 'Tested Graph',
-            data: data.cases_time_series.map((item)=>item.dailydeceased)
-        }],
-        this.options={
-            xaxis: {
-                categories: data.cases_time_series.map((item)=>item.dateymd)
-            },
-        }
+        // const {data} = await axios.get('https://data.covid19india.org/data.json')
+        // // console.log(data.tested.map((item)=>item.totalsamplestested))
+        // // console.log(data.tested.map((item)=>(item.testedasof)))
+        //  this.series =[{
+        //     name: 'Tested Graph',
+        //     data: data.tested.map((item)=>item.totalsamplestested)
+        // }],
+        // this.options={
+        //     xaxis: {
+        //         categories: data.tested.map((item,index)=>this.reformatDate(item.testedasof,index))
+        //     },
+        // }
     },
     // methods:{
-    //     reformatDate (date){
+    //     reformatDate (date,index){
+    //         //this check is coz of index 42 was empty so it's coz an error
+    //         if(index === 42){
+    //             return '2020-04-21'
+    //         }
     //         const d = date.split('/')
     //         return(`${d[2]}-${d[1]}-${d[0]}`)
     //     }
-    // }
+    // },
+    watch:{
+        xaxisTeastedGraphGraphData(value){
+            // console.log(value)
+            this.options={
+                xaxis:{
+                    categories: value
+                }
+            }
+        },
+        teastedGraphGraphData(value){
+            // console.log(value)
+            this.series =[{
+            name: 'Tested Graph',
+            // name: value.graphName,
+            data: value
+        }]
+        }
+    }
 }
 </script>
