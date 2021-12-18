@@ -1,15 +1,10 @@
 <template>
 <div>
     <apexchart width="100%" height="300" type="area" :options="options" :series="series"></apexchart>
-    <!-- {{xaxisConfirmedGraphData.length}}
-    {{confirmedGraphData.length}} -->
-    <!-- {{selectedState}} -->
-    <!-- {{confirmedGraphData}} -->
 </div>
 </template>
 
 <script>
-// import axios from 'axios'
 export default {
     name: 'ConfirmGraph',
     data: function () {
@@ -19,8 +14,7 @@ export default {
                     id: 'vuechart-example'
                 },
                 xaxis: {
-                    type: 'datetime',
-                    // categories: ['1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998']
+                    type: 'datetime',        
                     categories:[]
                 },
                 yaxis:{
@@ -52,7 +46,6 @@ export default {
             },
             series: [{
                 name: 'Confirmed Graph',
-                // data: ['30', '40', '45', '50', '49', '60', '70', '91'],
                 data:[]
             }],
         }
@@ -66,20 +59,6 @@ export default {
         xaxisConfirmedGraphData:Array,
         confirmedGraphData:Array,
     },
-    // async mounted(){
-    //     const {data} = await axios.get('https://data.covid19india.org/data.json')
-    //     //sending data from child compnent to parent component
-    //     // this.getData('top')
-    //     this.series =[{
-    //         name: 'Confirmed Graph',
-    //         data: data.cases_time_series.map((item)=>item.dailyconfirmed)
-    //     }]
-    //     this.options={
-    //         xaxis: {
-    //             categories: data.cases_time_series.map((item)=>item.dateymd)
-    //         },
-    //     }
-    // },
     watch:{
         xaxisConfirmedGraphData(value){
             // console.log(value)
@@ -93,13 +72,9 @@ export default {
             // console.log(value)
             this.series =[{
             name: 'Confirmed Graph',
-            // name: value.graphName,
             data: value
         }]
         }
     }
-    // mounted(){
-    //     console.log(this.confirmedGraphData.data)
-    // }
 }
 </script>

@@ -53,9 +53,6 @@
             </v-card>
         </v-col>
     </v-row>
-    <!-- {{casesTimeSeries}} -->
-    <!-- {{xaxisConfirmedGraphData}} -->
-    <!-- {{confirmedGraphData}} -->
 </v-main>
 </template>
 
@@ -74,10 +71,6 @@ export default {
     },
     data: () => ({
         xaxisConfirmedGraphData: [],
-        // confirmedGraphData:{
-        //     graphName:'Confirm Graph',
-        //     data:[]
-        // },
         confirmedGraphData:[],
         xaxisRecoveredGraphData: [],
         recoveredGraphData:[],
@@ -114,20 +107,7 @@ export default {
     },
     mounted(){
         // console.log('detail mounted')
-        // this.filterData()
-
-        //filter data for confirm graph
-        // this.xaxisConfirmedGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
-        // this.confirmedGraphData = this.casesTimeSeries.map((data)=>data.dailyconfirmed)
         this.filterData(this.casesTimeSeries)
-
-        //filter data for recover graph
-        // this.xaxisRecoveredGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
-        // this.recoveredGraphData = this.casesTimeSeries.map((data)=>data.dailyrecovered) 
-        
-        // //filter data for deceased graph
-        // this.xaxisDeceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dateymd)
-        // this.deceasedGraphGraphData = this.casesTimeSeries.map((data)=>data.dailydeceased) 
     }
 }
 </script>

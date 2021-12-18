@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 export default {
     name: 'RecoveredGraph',
     data: function () {
@@ -16,7 +15,6 @@ export default {
                 },
                 xaxis: {
                     type: 'datetime',
-                    // categories: ['1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998']
                     categories:[]
                 },
                 yaxis:{
@@ -48,7 +46,6 @@ export default {
             },
             series: [{
                 name: 'Recovered Graph',
-                // data: ['30', '40', '45', '50', '49', '60', '70', '91'],
                 data:[]
             }],
         }
@@ -79,17 +76,5 @@ export default {
         }]
         }
     },
-    // async mounted(){
-    //     const {data} = await axios.get('https://data.covid19india.org/data.json')
-    //     this.series =[{
-    //         name: 'Recovered Graph',
-    //         data: data.cases_time_series.map((item)=>item.dailyrecovered)
-    //     }]
-    //     this.options={
-    //         xaxis: {
-    //             categories: data.cases_time_series.map((item)=>item.dateymd)
-    //         },
-    //     }
-    // },
 }
 </script>
